@@ -61,6 +61,24 @@ namespace MiniBank {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to AccountId.
+        /// </summary>
+        internal static string AccountIdVarName {
+            get {
+                return ResourceManager.GetString("AccountIdVarName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Accounts.
+        /// </summary>
+        internal static string AccountsTableName {
+            get {
+                return ResourceManager.GetString("AccountsTableName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Balance.
         /// </summary>
         internal static string BalanceVarName {
@@ -70,41 +88,11 @@ namespace MiniBank {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Server={0};Database={1};Uid={2};Pwd={3};.
-        /// </summary>
-        internal static string ConnectionString {
-            get {
-                return ResourceManager.GetString("ConnectionString", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to DB.
         /// </summary>
         internal static string DBVarName {
             get {
                 return ResourceManager.GetString("DBVarName", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to SELECT Id, Balance, Type
-        ///FROM UserAccounts
-        ///INNER join Accounts ON UserAccounts.AccountId = Accounts.Id
-        ///WHERE Useraccounts.UserId = {0};.
-        /// </summary>
-        internal static string GetUserAcoountCommand {
-            get {
-                return ResourceManager.GetString("GetUserAcoountCommand", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to SELECT Id, Name FROM Users;.
-        /// </summary>
-        internal static string GetUsersCommand {
-            get {
-                return ResourceManager.GetString("GetUsersCommand", resourceCulture);
             }
         }
         
@@ -154,6 +142,15 @@ namespace MiniBank {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Simple.
+        /// </summary>
+        internal static string SimpleVarName {
+            get {
+                return ResourceManager.GetString("SimpleVarName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Type.
         /// </summary>
         internal static string TypeVarName {
@@ -177,6 +174,42 @@ namespace MiniBank {
         internal static string UnsoppertedAccount {
             get {
                 return ResourceManager.GetString("UnsoppertedAccount", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to UserAccounts.
+        /// </summary>
+        internal static string UserAccountsTableName {
+            get {
+                return ResourceManager.GetString("UserAccountsTableName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to UserId.
+        /// </summary>
+        internal static string UserIdVarName {
+            get {
+                return ResourceManager.GetString("UserIdVarName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Users.
+        /// </summary>
+        internal static string UsersTableName {
+            get {
+                return ResourceManager.GetString("UsersTableName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Vip.
+        /// </summary>
+        internal static string VipVarName {
+            get {
+                return ResourceManager.GetString("VipVarName", resourceCulture);
             }
         }
     }

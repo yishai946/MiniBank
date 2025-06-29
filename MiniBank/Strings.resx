@@ -136,26 +136,11 @@
     <value>PWD</value>
     <comment>DB PWD variable name</comment>
   </data>
-  <data name="ConnectionString" xml:space="preserve">
-    <value>Server={0};Database={1};Uid={2};Pwd={3};</value>
-    <comment>DB connection string template</comment>
-  </data>
-  <data name="GetUsersCommand" xml:space="preserve">
-    <value>SELECT Id, Name FROM Users;</value>
-    <comment>SQL command to get all users</comment>
-  </data>
   <data name="IdVarName" xml:space="preserve">
     <value>Id</value>
   </data>
   <data name="NameVarName" xml:space="preserve">
     <value>Name</value>
-  </data>
-  <data name="GetUserAcoountCommand" xml:space="preserve">
-    <value>SELECT Id, Balance, Type
-FROM UserAccounts
-INNER join Accounts ON UserAccounts.AccountId = Accounts.Id
-WHERE Useraccounts.UserId = {0};</value>
-    <comment>DB command to get all accounts of a given user by id - {0}</comment>
   </data>
   <data name="BalanceVarName" xml:space="preserve">
     <value>Balance</value>
@@ -165,5 +150,26 @@ WHERE Useraccounts.UserId = {0};</value>
   </data>
   <data name="UnsoppertedAccount" xml:space="preserve">
     <value>Unsupported account type: {0}</value>
+  </data>
+  <data name="UsersTableName" xml:space="preserve">
+    <value>Users</value>
+  </data>
+  <data name="UserAccountsTableName" xml:space="preserve">
+    <value>UserAccounts</value>
+  </data>
+  <data name="UserIdVarName" xml:space="preserve">
+    <value>UserId</value>
+  </data>
+  <data name="AccountIdVarName" xml:space="preserve">
+    <value>AccountId</value>
+  </data>
+  <data name="AccountsTableName" xml:space="preserve">
+    <value>Accounts</value>
+  </data>
+  <data name="SimpleVarName" xml:space="preserve">
+    <value>Simple</value>
+  </data>
+  <data name="VipVarName" xml:space="preserve">
+    <value>Vip</value>
   </data>
 </root>
