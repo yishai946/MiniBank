@@ -11,5 +11,15 @@ namespace MiniBank.Models
         public void Deposit(decimal amount) => Balance += amount;
 
         public abstract void Withdraw(decimal amount);
+
+        public virtual void AddUser(User user)
+        {
+            Users.Add(user);
+
+            if (!user.Accounts.Contains(this))
+            {
+                user.Accounts.Add(this);
+            }
+        }
     }
 }

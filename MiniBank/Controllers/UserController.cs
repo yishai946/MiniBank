@@ -1,80 +1,53 @@
-﻿using MiniBank.Converters;
-using MiniBank.DB;
+﻿using MiniBank.DB;
 using MiniBank.Models;
 using MiniBank.Models.Enums;
-using MySql.Data.MySqlClient;
+using MiniBank.Services;
+using NHibernate;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace MiniBank.Controllers
 {
     public class UserController
     {
-        public Database Database { get; set; }
+        private readonly AccountFactory _accountFactory;
+        private readonly NHibernateHelper _nhHelper;
 
-        public UserController()
+        public UserController(NHibernateHelper nhHelper)
         {
-            Database = new Database();
+            _accountFactory = new AccountFactory();
+            _nhHelper = nhHelper;
         }
 
-        public List<User> GetAllUsers()
-        {
-            var users = new List<User>();
+        public List<User> GetAllUsers() =>
+            _nhHelper.WithSession(session => session.Query<User>().ToList());
 
-            using (var connection = Database.GetConnection())
+        public List<Account> GetUserAccounts(int userId) =>
+            _nhHelper.WithSession(session =>
             {
-                connection.Open();
-                var command = new MySqlCommand(Strings.GetUsersCommand, connection);
+                var user = session.Get<User>(userId)
+                    ?? throw new KeyNotFoundException(string.Format(Strings.UserNotFound, userId));
 
-                using (var reader = command.ExecuteReader())
-                {
-                    while (reader.Read())
-                    {
-                        users.Add(new User
-                        {
-                            Id = reader.GetInt32(Strings.IdVarName),
-                            Name = reader.GetString(Strings.NameVarName)
-                        });
-                    }
-                }
-            }
+                return user.Accounts.ToList();
+            });
 
-            return users;
-        }
-
-        public List<Account> GetUserAccounts(int id)
-        {
-            var accounts = new List<Account>();
-
-            using (var connection = Database.GetConnection())
+        public int CreateUser(string name) =>
+            _nhHelper.WithTransaction(session =>
             {
-                connection.Open();
-                var command = new MySqlCommand(
-                    string.Format(Strings.GetUserAcoountCommand, id),
-                    connection
-                );
+                var newUser = new User { Name = name };
+                session.Save(newUser);
 
-                using (var reader = command.ExecuteReader())
-                {
-                    var converter = new AccountConvertor();
+                return newUser.Id;
+            });
 
-                    while (reader.Read())
-                    {
-                        var accountId = reader.GetInt32(Strings.IdVarName);
-                        var balance = reader.GetDecimal(Strings.BalanceVarName);
-                        var type = reader.GetString(Strings.TypeVarName);
-
-                        if (!Enum.TryParse<AccountType>(type, ignoreCase: true, out var accountType))
-                        {
-                            throw new InvalidOperationException(string.Format(Strings.UnsoppertedAccount, type));
-                        }
-
-                        accounts.Add(converter.Convert(accountType, accountId, balance));
-                    }
-                }
-            }
-
-            return accounts;
-        }
+        public void DeleteUser(int userId) =>
+            _nhHelper.WithTransaction(session =>
+            {
+                var user = session.Get<User>(userId)
+                    ?? throw new KeyNotFoundException(string.Format(Strings.UserNotFound, userId));
+                
+                session.Delete(user);
+            });
     }
 }

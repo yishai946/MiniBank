@@ -70,6 +70,15 @@ namespace MiniBank {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Account with ID {0} not found..
+        /// </summary>
+        internal static string AccountNotFound {
+            get {
+                return ResourceManager.GetString("AccountNotFound", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Accounts.
         /// </summary>
         internal static string AccountsTableName {
@@ -192,6 +201,15 @@ namespace MiniBank {
         internal static string UserIdVarName {
             get {
                 return ResourceManager.GetString("UserIdVarName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to User with ID {0} not found..
+        /// </summary>
+        internal static string UserNotFound {
+            get {
+                return ResourceManager.GetString("UserNotFound", resourceCulture);
             }
         }
         

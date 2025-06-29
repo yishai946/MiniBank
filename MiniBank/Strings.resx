@@ -172,4 +172,10 @@
   <data name="VipVarName" xml:space="preserve">
     <value>Vip</value>
   </data>
+  <data name="UserNotFound" xml:space="preserve">
+    <value>User with ID {0} not found.</value>
+  </data>
+  <data name="AccountNotFound" xml:space="preserve">
+    <value>Account with ID {0} not found.</value>
+  </data>
 </root>

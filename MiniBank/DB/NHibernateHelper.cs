@@ -36,5 +36,41 @@ namespace MiniBank.DB
         {
             _sessionFactory?.Dispose();
         }
+
+        #region wrappers
+        public void WithTransaction(Action<ISession> action)
+        {
+            using (var session = _sessionFactory.OpenSession())
+            {
+                using (var transaction = session.BeginTransaction())
+                {
+                    action(session);
+                    transaction.Commit();
+                }
+            }
+        }
+
+        public T WithTransaction<T>(Func<ISession, T> func)
+        {
+            using (var session = _sessionFactory.OpenSession())
+            {
+                using (var transaction = session.BeginTransaction())
+                {
+                    var result = func(session);
+                    transaction.Commit();
+
+                    return result;
+                }
+            }
+        }
+
+        public T WithSession<T>(Func<ISession, T> func)
+        {
+            using (var session = _sessionFactory.OpenSession())
+            {
+                return func(session);
+            }
+        }
+        #endregion
     }
 }
