@@ -12,14 +12,14 @@ namespace MiniBank.Mappings
             Map(account => account.Balance)
                 .Not.Nullable();
 
-            DiscriminateSubClassesOnColumn(Strings.TypeVarName);
-
             HasManyToMany(account => account.Users)
                 .Table(Strings.UserAccountsTableName)
                 .ParentKeyColumn(Strings.AccountIdVarName)
                 .ChildKeyColumn(Strings.UserIdVarName)
                 .Inverse()
                 .Cascade.All();
+
+            DiscriminateSubClassesOnColumn(Strings.TypeVarName);
         }
     }
 }

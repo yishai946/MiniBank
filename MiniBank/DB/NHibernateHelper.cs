@@ -20,16 +20,14 @@ namespace MiniBank.DB
                         .Username(username)
                         .Password(password)
                     )
-                    .ShowSql()
                 )
                 .Mappings(m => m.FluentMappings
-                    .Add<UserMap>()
-                    .Add<AccountMap>()
-                )
+                    .AddFromAssemblyOf<NHibernateHelper>()
+                 )
                 .BuildSessionFactory();
         }
 
-        public ISession OpenSession()
+        private ISession OpenSession()
         {
             return _sessionFactory.OpenSession();
         }

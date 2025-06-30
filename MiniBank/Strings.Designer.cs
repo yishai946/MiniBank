@@ -151,6 +151,15 @@ namespace MiniBank {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Amount must be greater than zero..
+        /// </summary>
+        internal static string AmountErrorMsg {
+            get {
+                return ResourceManager.GetString("AmountErrorMsg", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Enter amount:.
         /// </summary>
         internal static string AmountInputMsg {
@@ -178,7 +187,7 @@ namespace MiniBank {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to DB.
+        ///   Looks up a localized string similar to DATABASE.
         /// </summary>
         internal static string DBVarName {
             get {
@@ -288,7 +297,7 @@ namespace MiniBank {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Type.
+        ///   Looks up a localized string similar to type.
         /// </summary>
         internal static string TypeVarName {
             get {
@@ -333,7 +342,7 @@ namespace MiniBank {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to {0}: {1}.
+        ///   Looks up a localized string similar to ID {0}: {1}.
         /// </summary>
         internal static string UserFormat {
             get {
@@ -396,7 +405,7 @@ namespace MiniBank {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Vip.
+        ///   Looks up a localized string similar to VIP.
         /// </summary>
         internal static string VipVarName {
             get {

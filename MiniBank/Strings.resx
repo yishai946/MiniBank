@@ -125,7 +125,7 @@
     <comment>DB server variable name</comment>
   </data>
   <data name="DBVarName" xml:space="preserve">
-    <value>DB</value>
+    <value>DATABASE</value>
     <comment>DB database variable name</comment>
   </data>
   <data name="UsernameVarName" xml:space="preserve">
@@ -146,7 +146,7 @@
     <value>Balance</value>
   </data>
   <data name="TypeVarName" xml:space="preserve">
-    <value>Type</value>
+    <value>type</value>
   </data>
   <data name="UnsoppertedAccount" xml:space="preserve">
     <value>Unsupported account type: {0}</value>
@@ -170,7 +170,7 @@
     <value>Simple</value>
   </data>
   <data name="VipVarName" xml:space="preserve">
-    <value>Vip</value>
+    <value>VIP</value>
   </data>
   <data name="UserNotFound" xml:space="preserve">
     <value>User with ID {0} not found.</value>
@@ -182,7 +182,7 @@
     <value>=== Users ===</value>
   </data>
   <data name="UserFormat" xml:space="preserve">
-    <value>{0}: {1}</value>
+    <value>ID {0}: {1}</value>
     <comment>0 - user.id, 1 - user.name</comment>
   </data>
   <data name="UserIdInputMsg" xml:space="preserve">
@@ -242,5 +242,8 @@ Stack trace: {1}</value>
   </data>
   <data name="ActionInputMsg" xml:space="preserve">
     <value>Choose action:</value>
+  </data>
+  <data name="AmountErrorMsg" xml:space="preserve">
+    <value>Amount must be greater than zero.</value>
   </data>
 </root>

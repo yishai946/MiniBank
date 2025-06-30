@@ -2,6 +2,8 @@
 using MiniBank.Models;
 using MiniBank.Services;
 using MiniBank.Views;
+using NHibernate;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 

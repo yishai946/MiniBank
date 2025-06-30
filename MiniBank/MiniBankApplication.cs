@@ -52,13 +52,11 @@ namespace MiniBank
                 }
                 catch (Exception exception)
                 {
-                    string errorMessage = string.Format(
+                    _utilView.Output(string.Format(
                         Strings.ErrorMsg,
-                        exception.Message,
+                        exception.Message,  
                         exception.StackTrace
-                    );
-
-                    _utilView.Output(errorMessage);
+                    ));
                 }
 
                 choosenAction = _utilView.GetAction();

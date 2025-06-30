@@ -44,7 +44,7 @@ namespace MiniBank.Views
             return Console.ReadLine();
         }
 
-        public void Output(string message) => Console.WriteLine(message);
+        public void Output(string message = "") => Console.WriteLine(message);
 
         public void Output(int message) => Console.WriteLine(message);
     }
