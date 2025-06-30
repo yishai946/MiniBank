@@ -61,6 +61,42 @@ namespace MiniBank {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Account with ID {0} created successfully.
+        /// </summary>
+        internal static string AccountCreatedMsg {
+            get {
+                return ResourceManager.GetString("AccountCreatedMsg", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Account with ID {0} deleted successfully.
+        /// </summary>
+        internal static string AccountDeletedMsg {
+            get {
+                return ResourceManager.GetString("AccountDeletedMsg", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to ID: {0} | Type: {1} | Balance: {2}.
+        /// </summary>
+        internal static string AccountFormat {
+            get {
+                return ResourceManager.GetString("AccountFormat", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Enter account ID:.
+        /// </summary>
+        internal static string AccountIdInputMsg {
+            get {
+                return ResourceManager.GetString("AccountIdInputMsg", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to AccountId.
         /// </summary>
         internal static string AccountIdVarName {
@@ -79,11 +115,47 @@ namespace MiniBank {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Accounts.
+        ///   Looks up a localized string similar to accounts.
         /// </summary>
         internal static string AccountsTableName {
             get {
                 return ResourceManager.GetString("AccountsTableName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to === Accounts ===.
+        /// </summary>
+        internal static string AccountsViewHeader {
+            get {
+                return ResourceManager.GetString("AccountsViewHeader", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Enter account type:.
+        /// </summary>
+        internal static string AccountTypeInputMsg {
+            get {
+                return ResourceManager.GetString("AccountTypeInputMsg", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Choose action:.
+        /// </summary>
+        internal static string ActionInputMsg {
+            get {
+                return ResourceManager.GetString("ActionInputMsg", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Enter amount:.
+        /// </summary>
+        internal static string AmountInputMsg {
+            get {
+                return ResourceManager.GetString("AmountInputMsg", resourceCulture);
             }
         }
         
@@ -97,11 +169,58 @@ namespace MiniBank {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Choice is out of range, please try again..
+        /// </summary>
+        internal static string ChoiceOutOfRange {
+            get {
+                return ResourceManager.GetString("ChoiceOutOfRange", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to DB.
         /// </summary>
         internal static string DBVarName {
             get {
                 return ResourceManager.GetString("DBVarName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Deposit {0} to acoount {1} successfully.
+        /// </summary>
+        internal static string DepositMsg {
+            get {
+                return ResourceManager.GetString("DepositMsg", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to An unexpected error occurred: {0}.
+        ///Stack trace: {1}.
+        /// </summary>
+        internal static string ErrorMsg {
+            get {
+                return ResourceManager.GetString("ErrorMsg", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Mini Bank is closed.
+        ///Come back soon....
+        /// </summary>
+        internal static string ExitMsg {
+            get {
+                return ResourceManager.GetString("ExitMsg", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to HOST.
+        /// </summary>
+        internal static string HostVarName {
+            get {
+                return ResourceManager.GetString("HostVarName", resourceCulture);
             }
         }
         
@@ -124,6 +243,24 @@ namespace MiniBank {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to {0}. {1}.
+        /// </summary>
+        internal static string MenuItemFormat {
+            get {
+                return ResourceManager.GetString("MenuItemFormat", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Enter user name: .
+        /// </summary>
+        internal static string NameInputMsg {
+            get {
+                return ResourceManager.GetString("NameInputMsg", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Name.
         /// </summary>
         internal static string NameVarName {
@@ -133,20 +270,11 @@ namespace MiniBank {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to PWD.
+        ///   Looks up a localized string similar to PASSWORD.
         /// </summary>
-        internal static string PWDVarName {
+        internal static string PasswordVarName {
             get {
-                return ResourceManager.GetString("PWDVarName", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to HOST.
-        /// </summary>
-        internal static string ServerVarName {
-            get {
-                return ResourceManager.GetString("ServerVarName", resourceCulture);
+                return ResourceManager.GetString("PasswordVarName", resourceCulture);
             }
         }
         
@@ -169,15 +297,6 @@ namespace MiniBank {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to UID.
-        /// </summary>
-        internal static string UIDVarName {
-            get {
-                return ResourceManager.GetString("UIDVarName", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Unsupported account type: {0}.
         /// </summary>
         internal static string UnsoppertedAccount {
@@ -187,11 +306,47 @@ namespace MiniBank {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to UserAccounts.
+        ///   Looks up a localized string similar to useraccounts.
         /// </summary>
         internal static string UserAccountsTableName {
             get {
                 return ResourceManager.GetString("UserAccountsTableName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to User with ID {0} created successfully.
+        /// </summary>
+        internal static string UserCreatedMsg {
+            get {
+                return ResourceManager.GetString("UserCreatedMsg", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to User with ID {0} deleted successfully.
+        /// </summary>
+        internal static string UserDeletedMsg {
+            get {
+                return ResourceManager.GetString("UserDeletedMsg", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {0}: {1}.
+        /// </summary>
+        internal static string UserFormat {
+            get {
+                return ResourceManager.GetString("UserFormat", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Enter user ID: .
+        /// </summary>
+        internal static string UserIdInputMsg {
+            get {
+                return ResourceManager.GetString("UserIdInputMsg", resourceCulture);
             }
         }
         
@@ -205,6 +360,15 @@ namespace MiniBank {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to USERNAME.
+        /// </summary>
+        internal static string UsernameVarName {
+            get {
+                return ResourceManager.GetString("UsernameVarName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to User with ID {0} not found..
         /// </summary>
         internal static string UserNotFound {
@@ -214,11 +378,20 @@ namespace MiniBank {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Users.
+        ///   Looks up a localized string similar to users.
         /// </summary>
         internal static string UsersTableName {
             get {
                 return ResourceManager.GetString("UsersTableName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to === Users ===.
+        /// </summary>
+        internal static string UsersViewHeader {
+            get {
+                return ResourceManager.GetString("UsersViewHeader", resourceCulture);
             }
         }
         
@@ -228,6 +401,15 @@ namespace MiniBank {
         internal static string VipVarName {
             get {
                 return ResourceManager.GetString("VipVarName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Withdraw {0} from acoount {1} successfully.
+        /// </summary>
+        internal static string WithdrawMsg {
+            get {
+                return ResourceManager.GetString("WithdrawMsg", resourceCulture);
             }
         }
     }

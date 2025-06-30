@@ -8,7 +8,7 @@ namespace MiniBank.Models
         public virtual decimal Balance { get; set; }
         public virtual IList<User> Users { get; set; } = new List<User>();
 
-        public void Deposit(decimal amount) => Balance += amount;
+        public virtual void Deposit(decimal amount) => Balance += amount;
 
         public abstract void Withdraw(decimal amount);
 

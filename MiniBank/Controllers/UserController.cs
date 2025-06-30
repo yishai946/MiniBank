@@ -1,9 +1,7 @@
 ﻿using MiniBank.DB;
 using MiniBank.Models;
-using MiniBank.Models.Enums;
 using MiniBank.Services;
-using NHibernate;
-using System;
+using MiniBank.Views;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -13,6 +11,9 @@ namespace MiniBank.Controllers
     {
         private readonly AccountFactory _accountFactory;
         private readonly NHibernateHelper _nhHelper;
+        private readonly UserView _userView = new UserView();
+        private readonly AccountView _accountView = new AccountView();
+        private readonly UtilView _utilView = new UtilView();
 
         public UserController(NHibernateHelper nhHelper)
         {
@@ -20,34 +21,58 @@ namespace MiniBank.Controllers
             _nhHelper = nhHelper;
         }
 
-        public List<User> GetAllUsers() =>
-            _nhHelper.WithSession(session => session.Query<User>().ToList());
+        public void GetAllUsers()
+        {
+            var users = _nhHelper.WithSession(session => session.Query<User>().ToList());
 
-        public List<Account> GetUserAccounts(int userId) =>
-            _nhHelper.WithSession(session =>
+            _userView.ShowUsers(users);
+        }
+
+        public void GetUserAccounts() {
+            var userId = int.Parse(_utilView.GetInput(Strings.UserIdInputMsg));
+
+            var accounts = 
+                _nhHelper.WithSession(session =>
+                {
+                    var user = session.Get<User>(userId)
+                        ?? throw new KeyNotFoundException(string.Format(Strings.UserNotFound, userId));
+
+                    return user.Accounts.ToList();
+                });
+
+            _accountView.ShowAccounts(accounts);
+        }
+
+        public void CreateUser()
+        {
+            var name = _utilView.GetInput(Strings.NameInputMsg);
+
+            var newUserId = 
+                _nhHelper.WithTransaction(session =>
+                {
+                    var newUser = new User { Name = name };
+                    session.Save(newUser);
+
+                    return newUser.Id;
+                }
+            );
+
+            _utilView.Output(string.Format(Strings.UserCreatedMsg, newUserId));
+        }
+
+        public void DeleteUser()
+        {
+            var userId = int.Parse(_utilView.GetInput(Strings.UserIdInputMsg));
+
+            _nhHelper.WithTransaction(session =>
             {
                 var user = session.Get<User>(userId)
                     ?? throw new KeyNotFoundException(string.Format(Strings.UserNotFound, userId));
 
-                return user.Accounts.ToList();
-            });
-
-        public int CreateUser(string name) =>
-            _nhHelper.WithTransaction(session =>
-            {
-                var newUser = new User { Name = name };
-                session.Save(newUser);
-
-                return newUser.Id;
-            });
-
-        public void DeleteUser(int userId) =>
-            _nhHelper.WithTransaction(session =>
-            {
-                var user = session.Get<User>(userId)
-                    ?? throw new KeyNotFoundException(string.Format(Strings.UserNotFound, userId));
-                
                 session.Delete(user);
             });
+
+            _utilView.Output(string.Format(Strings.UserDeletedMsg, userId));
+        }
     }
 }

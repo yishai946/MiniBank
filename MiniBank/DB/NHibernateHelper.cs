@@ -20,9 +20,11 @@ namespace MiniBank.DB
                         .Username(username)
                         .Password(password)
                     )
+                    .ShowSql()
                 )
                 .Mappings(m => m.FluentMappings
-                    .AddFromAssemblyOf<AccountMap>()
+                    .Add<UserMap>()
+                    .Add<AccountMap>()
                 )
                 .BuildSessionFactory();
         }

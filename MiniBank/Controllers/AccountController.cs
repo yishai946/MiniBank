@@ -3,26 +3,41 @@ using MiniBank.Models;
 using MiniBank.Services;
 using System.Collections.Generic;
 using System;
-using MiniBank.Models.Enums;
+using MiniBank.Views;
 
 namespace MiniBank.Controllers
 {
     public class AccountController
     {
-        private readonly AccountFactory _accountFactory;
         private readonly NHibernateHelper _nhHelper;
+        private readonly AccountFactory _accountFactory = new AccountFactory();
+        private readonly UtilView _utilView = new UtilView();
+        private readonly AccountView _accountView = new AccountView();
 
         public AccountController(NHibernateHelper nhHelper)
         {
-            _accountFactory = new AccountFactory();
             _nhHelper = nhHelper;
         }
 
-        public void Withdraw(int accountId, decimal amount) =>
+        public void Withdraw()
+        {
+            var accountId = int.Parse(_utilView.GetInput(Strings.AccountIdInputMsg));
+            var amount = decimal.Parse(_utilView.GetInput(Strings.AmountInputMsg));
+
             ExecuteAccountAction(accountId, account => account.Withdraw(amount));
 
-        public void Deposit(int accountId, decimal amount) =>
+            _utilView.Output(string.Format(Strings.WithdrawMsg, amount, accountId));
+        }
+
+        public void Deposit()
+        {
+            var accountId = int.Parse(_utilView.GetInput(Strings.AccountIdInputMsg));
+            var amount = decimal.Parse(_utilView.GetInput(Strings.AmountInputMsg));
+
             ExecuteAccountAction(accountId, account => account.Deposit(amount));
+
+            _utilView.Output(string.Format(Strings.DepositMsg, amount, accountId));
+        }
 
         private void ExecuteAccountAction(int accountId, Action<Account> accountAction) =>
             _nhHelper.WithTransaction(session =>
@@ -33,8 +48,12 @@ namespace MiniBank.Controllers
                 accountAction(account);
             });
 
-        public int CreateAccount(int userId, AccountType type) =>
-            _nhHelper.WithTransaction(session =>
+        public void CreateAccount()
+        {
+            var userId = int.Parse(_utilView.GetInput(Strings.UserIdInputMsg));
+            var type = _accountView.GetAccountType();
+
+            var newAccountId = _nhHelper.WithTransaction(session =>
             {
                 var user = session.Get<User>(userId)
                     ?? throw new KeyNotFoundException(string.Format(Strings.UserNotFound, userId));
@@ -45,7 +64,13 @@ namespace MiniBank.Controllers
                 return newAccount.Id;
             });
 
-        public void DeleteAccount(int accountId) =>
+            _utilView.Output(string.Format(Strings.AccountCreatedMsg, newAccountId));
+        }
+
+        public void DeleteAccount()
+        {
+            var accountId = int.Parse(_utilView.GetInput(Strings.AccountIdInputMsg));
+
             _nhHelper.WithTransaction(session =>
             {
                 var account = session.Get<Account>(accountId)
@@ -53,5 +78,8 @@ namespace MiniBank.Controllers
 
                 session.Delete(account);
             });
+
+            _utilView.Output(string.Format(Strings.AccountDeletedMsg, accountId));
+        }
     }
 }

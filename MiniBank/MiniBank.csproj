@@ -266,6 +266,7 @@
     <Compile Include="Mappings\VipAccountMap.cs" />
     <Compile Include="Mappings\SimpleAccountMap.cs" />
     <Compile Include="Mappings\UserMap.cs" />
+    <Compile Include="MiniBankApplication.cs" />
     <Compile Include="Models\Account.cs" />
     <Compile Include="Models\Enums\AccountType.cs" />
     <Compile Include="Models\SimpleAccount.cs" />
@@ -279,15 +280,19 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Strings.resx</DependentUpon>
     </Compile>
+    <Compile Include="Views\AccountView.cs" />
+    <Compile Include="Views\Enums\ActionOption.cs" />
+    <Compile Include="Views\UtilView.cs" />
+    <Compile Include="Views\UserView.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include=".env" />
+    <None Include=".env">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Include="App.config" />
     <None Include="packages.config" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Views\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <EmbeddedResource Include="Strings.resx">
       <Generator>ResXFileCodeGenerator</Generator>
