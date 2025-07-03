@@ -10,10 +10,9 @@ namespace MiniBank
 {
     public class MiniBankApplication
     {
-        private NHibernateHelper _nhHelper;
-        private UserController _userController;
-        private AccountController _accountController;
-        private readonly UtilView _utilView = new UtilView();
+        private NHibernateHelper NhHelper;
+        private UserController UserController;
+        private AccountController AccountController;
 
         public MiniBankApplication()
         {
@@ -30,19 +29,19 @@ namespace MiniBank
             var username = Environment.GetEnvironmentVariable(Strings.UsernameVarName);
             var password = Environment.GetEnvironmentVariable(Strings.PasswordVarName);
 
-            _nhHelper = new NHibernateHelper(host, database, username, password);
+            NhHelper = new NHibernateHelper(host, database, username, password);
         }
 
         private void InitiailzeControllers()
         {
-            _accountController = new AccountController(_nhHelper);
-            _userController = new UserController(_nhHelper);
+            AccountController = new AccountController(NhHelper);
+            UserController = new UserController(NhHelper);
         }
 
         public void Run()
         {
             var actions = GetActions();
-            var choosenAction = _utilView.GetAction();
+            var choosenAction = new UtilView().GetAction();
 
             while (choosenAction != ActionOption.Exit)
             {
@@ -52,29 +51,29 @@ namespace MiniBank
                 }
                 catch (Exception exception)
                 {
-                    _utilView.Output(string.Format(
+                    new UtilView().Output(string.Format(
                         Strings.ErrorMsg,
                         exception.Message,  
                         exception.StackTrace
                     ));
                 }
 
-                choosenAction = _utilView.GetAction();
+                choosenAction = new UtilView().GetAction();
             }
         }
 
         private Dictionary<ActionOption, Action> GetActions() =>
             new Dictionary<ActionOption, Action>
             {
-                { ActionOption.GetUsers, _userController.GetAllUsers },
-                { ActionOption.GetUserAccounts, _userController.GetUserAccounts },
-                { ActionOption.Withdraw, _accountController.Withdraw },
-                { ActionOption.Deposit, _accountController.Deposit },
-                { ActionOption.CreateUser, _userController.CreateUser },
-                { ActionOption.CreateAccount, _accountController.CreateAccount },
-                { ActionOption.DeleteUser, _userController.DeleteUser },
-                { ActionOption.DeleteAccount, _accountController.DeleteAccount },
-                { ActionOption.Exit, () => _utilView.Output(Strings.ExitMsg) }
+                { ActionOption.GetUsers, UserController.GetAllUsers },
+                { ActionOption.GetUserAccounts, UserController.GetUserAccounts },
+                { ActionOption.Withdraw, AccountController.Withdraw },
+                { ActionOption.Deposit, AccountController.Deposit },
+                { ActionOption.CreateUser, UserController.CreateUser },
+                { ActionOption.CreateAccount, AccountController.CreateAccount },
+                { ActionOption.DeleteUser, UserController.DeleteUser },
+                { ActionOption.DeleteAccount, AccountController.DeleteAccount },
+                { ActionOption.Exit, () => new UtilView().Output(Strings.ExitMsg) }
             };
     }
 }

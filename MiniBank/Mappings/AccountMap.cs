@@ -16,8 +16,7 @@ namespace MiniBank.Mappings
                 .Table(Strings.UserAccountsTableName)
                 .ParentKeyColumn(Strings.AccountIdVarName)
                 .ChildKeyColumn(Strings.UserIdVarName)
-                .Inverse()
-                .Cascade.All();
+                .Inverse();
 
             DiscriminateSubClassesOnColumn(Strings.TypeVarName);
         }

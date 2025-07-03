@@ -1,46 +1,53 @@
-﻿using FluentNHibernate.Cfg;
+﻿using FluentNHibernate.Automapping;
+using FluentNHibernate.Cfg;
 using FluentNHibernate.Cfg.Db;
+using MiniBank.Models;
 using NHibernate;
-using MiniBank.Mappings;
 using System;
 
 namespace MiniBank.DB
 {
     public class NHibernateHelper : IDisposable
     {
-        private readonly ISessionFactory _sessionFactory;
+        private readonly ISessionFactory SessionFactory;
 
         public NHibernateHelper(string server, string database, string username, string password)
         {
-            _sessionFactory = Fluently.Configure()
+            var autoMap = AutoMap
+                .AssemblyOf<User>(new AutoMappingConfiguration())
+                .UseOverridesFromAssemblyOf<User>();
+
+            SessionFactory = Fluently.Configure()
                 .Database(MySQLConfiguration.Standard
-                    .ConnectionString(c => c
+                    .ConnectionString(connection => connection
                         .Server(server)
                         .Database(database)
                         .Username(username)
                         .Password(password)
                     )
                 )
-                .Mappings(m => m.FluentMappings
-                    .AddFromAssemblyOf<NHibernateHelper>()
-                 )
+                .Mappings(map =>
+                {
+                    map.AutoMappings.Add(autoMap);
+                    map.FluentMappings.AddFromAssemblyOf<Account>();
+                })
                 .BuildSessionFactory();
         }
 
         private ISession OpenSession()
         {
-            return _sessionFactory.OpenSession();
+            return SessionFactory.OpenSession();
         }
 
         public void Dispose()
         {
-            _sessionFactory?.Dispose();
+            SessionFactory?.Dispose();
         }
 
         #region wrappers
         public void WithTransaction(Action<ISession> action)
         {
-            using (var session = _sessionFactory.OpenSession())
+            using (var session = OpenSession())
             {
                 using (var transaction = session.BeginTransaction())
                 {
@@ -52,7 +59,7 @@ namespace MiniBank.DB
 
         public T WithTransaction<T>(Func<ISession, T> func)
         {
-            using (var session = _sessionFactory.OpenSession())
+            using (var session = OpenSession())
             {
                 using (var transaction = session.BeginTransaction())
                 {
@@ -66,7 +73,7 @@ namespace MiniBank.DB
 
         public T WithSession<T>(Func<ISession, T> func)
         {
-            using (var session = _sessionFactory.OpenSession())
+            using (var session = OpenSession())
             {
                 return func(session);
             }

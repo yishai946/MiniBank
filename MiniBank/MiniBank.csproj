@@ -261,11 +261,12 @@
   <ItemGroup>
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\UserController.cs" />
+    <Compile Include="DB\AutoMappingConfiguration.cs" />
     <Compile Include="DB\NHibernateHelper.cs" />
+    <Compile Include="DB\UserOverride.cs" />
     <Compile Include="Mappings\AccountMap.cs" />
     <Compile Include="Mappings\VipAccountMap.cs" />
     <Compile Include="Mappings\SimpleAccountMap.cs" />
-    <Compile Include="Mappings\UserMap.cs" />
     <Compile Include="MiniBankApplication.cs" />
     <Compile Include="Models\Account.cs" />
     <Compile Include="Models\Enums\AccountType.cs" />
