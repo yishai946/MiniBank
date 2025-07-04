@@ -10,38 +10,15 @@ namespace MiniBank
 {
     public class MiniBankApplication
     {
-        private NHibernateHelper NhHelper;
-        private UserController UserController;
-        private AccountController AccountController;
-
-        public MiniBankApplication()
-        {
-            Env.Load();
-
-            InitializeDB();
-            InitiailzeControllers();
-        }
-
-        private void InitializeDB()
-        {
-            var host = Environment.GetEnvironmentVariable(Strings.HostVarName);
-            var database = Environment.GetEnvironmentVariable(Strings.DBVarName);
-            var username = Environment.GetEnvironmentVariable(Strings.UsernameVarName);
-            var password = Environment.GetEnvironmentVariable(Strings.PasswordVarName);
-
-            NhHelper = new NHibernateHelper(host, database, username, password);
-        }
-
-        private void InitiailzeControllers()
-        {
-            AccountController = new AccountController(NhHelper);
-            UserController = new UserController(NhHelper);
-        }
+        private readonly UserController UserController =
+            new UserController(Database.Instance);
+        private readonly AccountController AccountController =
+            new AccountController(Database.Instance);
 
         public void Run()
         {
             var actions = GetActions();
-            var choosenAction = new UtilView().GetAction();
+            var choosenAction = new ApplicationView().GetAction();
 
             while (choosenAction != ActionOption.Exit)
             {
@@ -51,14 +28,14 @@ namespace MiniBank
                 }
                 catch (Exception exception)
                 {
-                    new UtilView().Output(string.Format(
+                    new ApplicationView().Output(string.Format(
                         Strings.ErrorMsg,
                         exception.Message,  
                         exception.StackTrace
                     ));
                 }
 
-                choosenAction = new UtilView().GetAction();
+                choosenAction = new ApplicationView().GetAction();
             }
         }
 
@@ -73,7 +50,7 @@ namespace MiniBank
                 { ActionOption.CreateAccount, AccountController.CreateAccount },
                 { ActionOption.DeleteUser, UserController.DeleteUser },
                 { ActionOption.DeleteAccount, AccountController.DeleteAccount },
-                { ActionOption.Exit, () => new UtilView().Output(Strings.ExitMsg) }
+                { ActionOption.Exit, () => new ApplicationView().Output(Strings.ExitMsg) }
             };
     }
 }

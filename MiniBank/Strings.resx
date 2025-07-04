@@ -185,8 +185,8 @@
     <value>ID {0}: {1}</value>
     <comment>0 - user.id, 1 - user.name</comment>
   </data>
-  <data name="UserIdInputMsg" xml:space="preserve">
-    <value>Enter user ID: </value>
+  <data name="IdInputMsg" xml:space="preserve">
+    <value>Enter {0} ID: </value>
   </data>
   <data name="AccountsViewHeader" xml:space="preserve">
     <value>=== Accounts ===</value>
@@ -211,9 +211,6 @@
   <data name="UserDeletedMsg" xml:space="preserve">
     <value>User with ID {0} deleted successfully</value>
   </data>
-  <data name="AccountIdInputMsg" xml:space="preserve">
-    <value>Enter account ID:</value>
-  </data>
   <data name="AmountInputMsg" xml:space="preserve">
     <value>Enter amount:</value>
   </data>
@@ -237,13 +234,21 @@
 Come back soon...</value>
   </data>
   <data name="ErrorMsg" xml:space="preserve">
-    <value>An unexpected error occurred: {0}.
-Stack trace: {1}</value>
+    <value>An unexpected error occurred: {0}.</value>
   </data>
   <data name="ActionInputMsg" xml:space="preserve">
     <value>Choose action:</value>
   </data>
   <data name="AmountErrorMsg" xml:space="preserve">
     <value>Amount must be greater than zero.</value>
+  </data>
+  <data name="InputError" xml:space="preserve">
+    <value>Invalid input. Please enter a valid value:</value>
+  </data>
+  <data name="AccountVarName" xml:space="preserve">
+    <value>Account</value>
+  </data>
+  <data name="UserVarName" xml:space="preserve">
+    <value>User</value>
   </data>
 </root>

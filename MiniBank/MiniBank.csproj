@@ -262,8 +262,10 @@
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\UserController.cs" />
     <Compile Include="DB\AutoMappingConfiguration.cs" />
+    <Compile Include="DB\Database.cs" />
     <Compile Include="DB\NHibernateHelper.cs" />
     <Compile Include="DB\UserOverride.cs" />
+    <Compile Include="Logic\AccountLogic.cs" />
     <Compile Include="Mappings\AccountMap.cs" />
     <Compile Include="Mappings\VipAccountMap.cs" />
     <Compile Include="Mappings\SimpleAccountMap.cs" />
@@ -283,7 +285,7 @@
     </Compile>
     <Compile Include="Views\AccountView.cs" />
     <Compile Include="Views\Enums\ActionOption.cs" />
-    <Compile Include="Views\UtilView.cs" />
+    <Compile Include="Views\ApplicationView.cs" />
     <Compile Include="Views\UserView.cs" />
   </ItemGroup>
   <ItemGroup>

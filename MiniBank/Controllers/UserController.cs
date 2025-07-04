@@ -23,13 +23,16 @@ namespace MiniBank.Controllers
         }
 
         public void GetUserAccounts() {
-            var userId = int.Parse(new UtilView().GetInput(Strings.UserIdInputMsg));
+            var userId = new ApplicationView().GetId(Strings.UserVarName);
 
             var accounts = 
                 NhHelper.WithSession(session =>
                 {
-                    var user = session.Get<User>(userId)
-                        ?? throw new KeyNotFoundException(string.Format(Strings.UserNotFound, userId));
+                    var user = session.Get<User>(userId);
+
+                    if (user == null) {
+                        throw new KeyNotFoundException(string.Format(Strings.UserNotFound, userId));
+                    }
 
                     return user.Accounts.ToList();
                 });
@@ -39,7 +42,7 @@ namespace MiniBank.Controllers
 
         public void CreateUser()
         {
-            var name = new UtilView().GetInput(Strings.NameInputMsg);
+            var name = new ApplicationView().GetString(Strings.NameInputMsg);
 
             var newUserId = 
                 NhHelper.WithTransaction(session =>
@@ -51,12 +54,12 @@ namespace MiniBank.Controllers
                 }
             );
 
-            new UtilView().Output(string.Format(Strings.UserCreatedMsg, newUserId));
+            new ApplicationView().Output(string.Format(Strings.UserCreatedMsg, newUserId));
         }
 
         public void DeleteUser()
         {
-            var userId = int.Parse(new UtilView().GetInput(Strings.UserIdInputMsg));
+            var userId = new ApplicationView().GetId(Strings.UserVarName);
 
             NhHelper.WithTransaction(session =>
             {
@@ -66,7 +69,7 @@ namespace MiniBank.Controllers
                 session.Delete(user);
             });
 
-            new UtilView().Output(string.Format(Strings.UserDeletedMsg, userId));
+            new ApplicationView().Output(string.Format(Strings.UserDeletedMsg, userId));
         }
     }
 }

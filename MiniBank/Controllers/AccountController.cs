@@ -4,82 +4,93 @@ using MiniBank.Services;
 using System.Collections.Generic;
 using System;
 using MiniBank.Views;
+using MiniBank.Logic;
 
 namespace MiniBank.Controllers
 {
     public class AccountController
     {
-        private readonly NHibernateHelper _nhHelper;
-        private readonly AccountFactory _accountFactory = new AccountFactory();
-        private readonly UtilView _utilView = new UtilView();
-        private readonly AccountView _accountView = new AccountView();
+        private readonly NHibernateHelper NhHelper;
 
         public AccountController(NHibernateHelper nhHelper)
         {
-            _nhHelper = nhHelper;
+            NhHelper = nhHelper;
         }
 
         public void Withdraw()
         {
-            var accountId = int.Parse(_utilView.GetInput(Strings.AccountIdInputMsg));
-            var amount = decimal.Parse(_utilView.GetInput(Strings.AmountInputMsg));
+            var accountId = new ApplicationView().GetId(Strings.AccountVarName);
+            var amount = new ApplicationView().GetAmount();
 
-            ExecuteAccountAction(accountId, account => account.Withdraw(amount));
+            ModifyAccount(accountId, account => new AccountLogic().Withdraw(account, amount));
 
-            _utilView.Output(string.Format(Strings.WithdrawMsg, amount, accountId));
+            new ApplicationView().Output(string.Format(Strings.WithdrawMsg, amount, accountId));
         }
 
         public void Deposit()
         {
-            var accountId = int.Parse(_utilView.GetInput(Strings.AccountIdInputMsg));
-            var amount = decimal.Parse(_utilView.GetInput(Strings.AmountInputMsg));
+            var accountId = new ApplicationView().GetId(Strings.AccountVarName);
+            var amount = new ApplicationView().GetAmount();
 
-            ExecuteAccountAction(accountId, account => account.Deposit(amount));
+            ModifyAccount(accountId, account => new AccountLogic().Deposit(account, amount));
 
-            _utilView.Output(string.Format(Strings.DepositMsg, amount, accountId));
+            new ApplicationView().Output(string.Format(Strings.DepositMsg, amount, accountId));
         }
 
-        private void ExecuteAccountAction(int accountId, Action<Account> accountAction) =>
-            _nhHelper.WithTransaction(session =>
+        private void ModifyAccount(int accountId, Action<Account> accountAction) =>
+            NhHelper.WithTransaction(session =>
             {
-                var account = session.Get<Account>(accountId)
-                    ?? throw new KeyNotFoundException(string.Format(Strings.AccountNotFound, accountId));
-
+                var account = session.Get<Account>(accountId);
+                
+                if (account == null) {
+                    throw new KeyNotFoundException(string.Format(Strings.AccountNotFound, accountId));
+                }
+                
                 accountAction(account);
             });
 
         public void CreateAccount()
         {
-            var userId = int.Parse(_utilView.GetInput(Strings.UserIdInputMsg));
-            var type = _accountView.GetAccountType();
+            var userId = new ApplicationView().GetId(Strings.AccountVarName);
+            var type = new AccountView().GetAccountType();
 
-            var newAccountId = _nhHelper.WithTransaction(session =>
+            var newAccountId = NhHelper.WithTransaction(session =>
             {
-                var user = session.Get<User>(userId)
-                    ?? throw new KeyNotFoundException(string.Format(Strings.UserNotFound, userId));
+                var user = session.Get<User>(userId);
 
-                var newAccount = _accountFactory.CreateAccount(type);
-                user.AddAccount(newAccount);
+                if (user == null) {
+                    throw new KeyNotFoundException(string.Format(Strings.UserNotFound, userId));
+                }
+
+                var newAccount = new AccountFactory().CreateAccount(type);
+
+                user.Accounts.Add(newAccount);
+                newAccount.Users.Add(user);
+
+                session.Save(newAccount);
 
                 return newAccount.Id;
             });
 
-            _utilView.Output(string.Format(Strings.AccountCreatedMsg, newAccountId));
+            new ApplicationView().Output(string.Format(Strings.AccountCreatedMsg, newAccountId));
         }
 
         public void DeleteAccount()
         {
-            var accountId = int.Parse(_utilView.GetInput(Strings.AccountIdInputMsg));
+            var accountId = new ApplicationView().GetId(Strings.AccountVarName);
 
-            _nhHelper.WithTransaction(session =>
+            NhHelper.WithTransaction(session =>
             {
-                var account = session.Get<Account>(accountId)
-                    ?? throw new KeyNotFoundException(string.Format(Strings.AccountNotFound, accountId));
+                var account = session.Get<Account>(accountId);
+
+                if (account == null) {
+                    throw new KeyNotFoundException(string.Format(Strings.AccountNotFound, accountId));
+                }
 
                 session.Delete(account);
             });
 
-            _utilView.Output(string.Format(Strings.AccountDeletedMsg, accountId));
+            new ApplicationView().Output(string.Format(Strings.AccountDeletedMsg, accountId));
         }
     }
 }
