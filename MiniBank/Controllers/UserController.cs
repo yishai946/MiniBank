@@ -1,6 +1,8 @@
 ﻿using MiniBank.DB;
 using MiniBank.Models;
 using MiniBank.Views;
+using NHibernate.Linq;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -63,10 +65,23 @@ namespace MiniBank.Controllers
 
             NhHelper.WithTransaction(session =>
             {
-                var user = session.Get<User>(userId)
-                    ?? throw new KeyNotFoundException(string.Format(Strings.UserNotFound, userId));
+                var userToDelete = session.Get<User>(userId);
 
-                session.Delete(user);
+                if (userToDelete == null) {
+                    throw new KeyNotFoundException(string.Format(Strings.UserNotFound, userId));
+                }
+
+                var accountsToCheck = userToDelete.Accounts.ToList();
+
+                accountsToCheck.ForEach(account =>
+                {
+                    if (account.Users.Count == 1)
+                    {
+                        session.Delete(account);
+                    }
+                });
+
+                session.Delete(userToDelete);
             });
 
             new ApplicationView().Output(string.Format(Strings.UserDeletedMsg, userId));

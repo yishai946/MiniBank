@@ -14,7 +14,7 @@ namespace MiniBank.DB
                 .Table(Strings.UserAccountsTableName)
                 .ParentKeyColumn(Strings.UserIdVarName)
                 .ChildKeyColumn(Strings.AccountIdVarName)
-                .Cascade.All();
+                .Cascade.SaveUpdate();
         }
     }
 }
